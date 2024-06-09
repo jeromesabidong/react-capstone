@@ -1,7 +1,8 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import App from "../App";
+import { Link, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import OrderOnlinePage from "../pages/OrderOnlinePage";
+import TableReservation from "../pages/TableReservation";
+import { useReducer } from "react";
 
 const Nav = () => {
 
@@ -9,10 +10,20 @@ const Nav = () => {
         { name: "Home", url: "/" },
         { name: "About", url: "/homepage" },
         // { name: "Menu", url: "#menu" },
-        // { name: "Reservations", url: "#reservations" },
+        { name: "Reservations", url: "/reservations" },
         { name: "Order Online", url: "/order-online" },
         // { name: "Login", url: "#login" },
     ]
+
+    const updateTimes = (date) => {
+        setAvailableTimes([...availableTimes])
+    }
+
+    const initializeTimes = () => {
+        return [ "17:00", "18:00", "19:00", "20:00", "21:00" ];
+    }
+
+    const [availableTimes, setAvailableTimes] = useReducer(updateTimes, initializeTimes())
 
     return <>
         <nav className='flex items-center my-3'>
@@ -33,6 +44,7 @@ const Nav = () => {
             <Route path="/" element={<></>}></Route>
             <Route path="/homepage" element={<HomePage />}></Route>
             <Route path="/order-online" element={<OrderOnlinePage />}></Route>
+            <Route path="/reservations" element={<TableReservation availableTimes={availableTimes} setAvailableTimes={setAvailableTimes} />}></Route>
         </Routes>
     </>
 }
