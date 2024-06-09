@@ -6,12 +6,12 @@ import Nav from './sections/Nav';
 
 function App() {
   return (
-    <>
-      <Header />
+    <div className='w-full flex flex-col items-center h-screen justify-between'>
       <Nav />
+      <Header />
       <MainContent />
       <Footer />
-    </>
+    </div>
   );
 }
 
